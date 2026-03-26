@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprintar Sergiu Adrian — Software Developer</title>
+<style>
+  :root {
+    --bg: #FAFAFA;
+    --bg-card: #FFFFFF;
+    --text: #1a1a2e;
+    --text-secondary: #555;
+    --accent: #7C3AED;
+    --accent-light: #EDE9FE;
+    --accent-hover: #6D28D9;
+    --accent-glow: rgba(161, 0, 255, 0.3);
+    --gradient-start: #a100ff;
+    --gradient-end: #e0e0e3;
+    --border: #E5E7EB;
+    --tag-bg: #F3F4F6;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 16px rgba(161, 0, 255, 0.15);
+    --shadow-card: 0 2px 8px rgba(0,0,0,0.06);
+    --radius: 10px;
+    --transition: 0.3s ease;
+	--hero-gradient-start: #CBF1FB;
+	--hero-gradient-end: #D9C4ED;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, rgba(161,0,255,0.08) 0%, #FAFAFA 40%, var(--gradient-end) 70%, rgba(161,0,255,0.06) 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+  a:hover { color: var(--accent-hover); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  #particles {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+  }
+
+  .hero-photo-wrap {
+    position: relative; flex-shrink: 0;
+    width: 220px; height: 220px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .gradient-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(161,0,255,0.05) 0%, rgba(224,224,227,0.15) 50%, rgba(161,0,255,0.03) 100%);
+    z-index: 0; pointer-events: none;
+  }
+
+  .content-wrapper { position: relative; z-index: 1; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,250,250,0.8);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+  }
+  nav .container { display: flex; align-items: center; justify-content: center; }
+  nav .logo img { height: 36px; width: auto; display: block; margin-left: auto;
+    filter: brightness(0) saturate(100%) invert(22%) sepia(95%) saturate(5765%) hue-rotate(262deg) brightness(93%) contrast(97%);
+  }
+  nav .nav-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  nav .nav-links a {
+    color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;
+    position: relative; transition: color var(--transition);
+  }
+  nav .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px; background: var(--accent);
+    transition: width var(--transition);
+  }
+  nav .nav-links a:hover { color: var(--accent); }
+  nav .nav-links a:hover::after { width: 100%; }
+
+  .fade-in { opacity: 1; transform: translateY(0); }
+
+  .hero {
+    padding: 72px 0 48px;
+    display: flex; gap: 40px; align-items: center;
+  }
+  .hero-photo {
+    width: 150px; height: 150px; border-radius: 50%;
+    object-fit: cover; border: 3px solid var(--accent-light);
+    flex-shrink: 0; box-shadow: 0 0 24px var(--accent-glow);
+    transition: box-shadow var(--transition);
+    position: relative; z-index: 2;
+  }
+  .hero-photo:hover { box-shadow: 0 0 36px var(--accent-glow); }
+  .hero-photo-placeholder {
+    width: 150px; height: 150px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-light), #f3e8ff);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; color: var(--accent); font-size: 0.8rem;
+    text-align: center; padding: 16px;
+    border: 3px solid var(--accent-light);
+    box-shadow: 0 0 24px var(--accent-glow);
+    transition: box-shadow var(--transition);
+    position: relative; z-index: 2;
+  }
+  .hero-photo-placeholder:hover { box-shadow: 0 0 36px var(--accent-glow); }
+  .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 6px; }
+  .hero .subtitle { color: var(--accent); font-size: 1.1rem; margin-bottom: 16px; font-weight: 500; }
+  .hero .summary { color: var(--text-secondary); font-size: 0.95rem; max-width: 560px; }
+  .hero .contact-row { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; align-items: center; }
+  .hero .contact-row a {
+    font-size: 0.85rem; padding: 8px 18px; border-radius: 20px;
+    border: 1px solid var(--border); color: var(--text-secondary);
+    transition: all var(--transition); background: var(--bg-card);
+  }
+  .hero .contact-row a:hover {
+    border-color: var(--accent); color: var(--accent);
+    background: var(--accent-light); box-shadow: 0 2px 12px var(--accent-glow);
+  }
+
+  .contact-card {
+    margin-top: 18px;
+    display: flex; flex-direction: column; gap: 10px;
+    align-items: flex-start;
+  }
+  .contact-row-item { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .contact-row-label { font-size: 0.82rem; font-weight: 600; color: var(--text); position: relative; z-index: 2; }
+  .contact-row-value {
+    background: linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end));
+    border: none; border-radius: 12px; padding: 4px 12px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.85rem; color: var(--text);
+    user-select: all; cursor: text;
+    transition: all var(--transition);
+    position: relative; z-index: 2;
+  }
+  .contact-row-value:hover { box-shadow: 0 2px 8px rgba(161,240,255,0.3); }
+
+  .hero-contact-wrap { position: relative; width: 100%; min-height: 100px; }
+  .hero-contact-wrap canvas {
+    position: absolute; top: -10px; left: -20px;
+    width: calc(100% + 40px); height: calc(100% + 20px);
+    z-index: 0; pointer-events: none;
+  }
+  .hero-contact-wrap > *:not(canvas) { position: relative; z-index: 1; }
+
+  .approach { padding: 0 0 48px; }
+  .approach-card {
+    background: linear-gradient(135deg, rgba(161,0,255,0.04), rgba(161,0,255,0.01));
+    border: 1px solid rgba(161,0,255,0.12);
+    border-radius: var(--radius); padding: 24px 28px 14px;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .approach-card::before {
+    content: '"'; position: absolute; top: -10px; left: 16px;
+    font-size: 5rem; color: rgba(161,0,255,0.08); font-family: Georgia, serif; line-height: 1;
+  }
+  .approach-card p { color: var(--text-secondary); font-size: 0.95rem; position: relative; z-index: 1; }
+  .approach-card p strong { color: var(--text); font-weight: 600; }
+
+  .glance { padding: 0 0 48px; }
+  .glance-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+  .glance-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px;
+    box-shadow: var(--shadow-card); transition: all var(--transition); cursor: default;
+  }
+  .glance-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); border-color: rgba(161,0,255,0.2); }
+  .glance-card .years {
+    font-size: 1.8rem; font-weight: 700;
+    background: linear-gradient(135deg, var(--gradient-start), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .glance-card .label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px; }
+  .glance-card .detail { font-size: 0.78rem; color: #888; margin-top: 4px; }
+
+  .tech-section { padding: 0 0 48px; }
+  .tech-canvas-wrap {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow-card); overflow: hidden; position: relative;
+  }
+  #techCanvas { width: 100%; display: block; cursor: default; }
+  .tech-legend { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .tech-legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--text-secondary); }
+  .tech-legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  .section { padding: 40px 0; }
+  .section-title {
+    font-size: 1.3rem; font-weight: 700; margin-bottom: 24px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--border));
+  }
+  .tl-item { position: relative; margin-bottom: 20px; }
+  .tl-dot {
+    position: absolute; left: -28px; top: 8px; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--bg-card); border: 3px solid var(--accent); z-index: 1; transition: all var(--transition);
+  }
+  .tl-item:hover .tl-dot { box-shadow: 0 0 10px var(--accent-glow); }
+  .tl-item.current .tl-dot { background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { box-shadow: 0 0 10px var(--accent-glow); } 50% { box-shadow: 0 0 20px var(--accent-glow); } }
+  .tl-header {
+    cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    padding: 8px 12px; border-radius: 8px; transition: background var(--transition);
+  }
+  .tl-header:hover { background: rgba(161,0,255,0.03); }
+  .tl-header:hover .tl-role { color: var(--accent); }
+  .tl-role { font-weight: 600; font-size: 1rem; transition: color var(--transition); }
+  .tl-company { color: var(--text-secondary); font-size: 0.9rem; }
+  .tl-date { color: #888; font-size: 0.82rem; white-space: nowrap; }
+  .tl-expand-icon { font-size: 0.75rem; color: #aaa; transition: transform var(--transition); margin-left: 4px; }
+  .tl-item.open .tl-expand-icon { transform: rotate(180deg); color: var(--accent); }
+  .tl-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease, opacity 0.3s ease; padding: 0 12px; opacity: 0; }
+  .tl-item.open .tl-body { max-height: 2000px; padding: 12px 12px 0; opacity: 1; }
+  .tl-body p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 8px; }
+  .tl-body ul { padding-left: 18px; margin-bottom: 8px; }
+  .tl-body li { color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 4px; }
+  .tl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag { font-size: 0.75rem; padding: 3px 10px; border-radius: 12px; background: var(--tag-bg); color: var(--text-secondary); transition: all var(--transition); }
+  .tag:hover { background: var(--accent-light); color: var(--accent); }
+
+  .project-grid { display: flex; flex-direction: column; gap: 16px; }
+  .project-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-card); overflow: hidden; transition: all var(--transition); }
+  .project-card:hover { box-shadow: var(--shadow-hover); border-color: rgba(161,0,255,0.15); }
+  .project-header { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; }
+  .project-header h3 { font-size: 1rem; font-weight: 600; transition: color var(--transition); }
+  .project-card:hover .project-header h3 { color: var(--accent); }
+  .project-date { font-size: 0.8rem; color: #888; }
+  .project-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease; opacity: 0; }
+  .project-card.open .project-body { max-height: 2000px; opacity: 1; }
+  .project-body-inner { padding: 0 20px 20px; }
+  .project-body-inner p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 8px; }
+  .project-body-inner ul { padding-left: 18px; }
+  .project-body-inner li { color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 4px; }
+  .project-link { display: inline-block; margin-top: 8px; font-size: 0.85rem; }
+
+  .pub-list { display: flex; flex-direction: column; gap: 12px; }
+  .pub-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow-card); transition: all var(--transition); }
+  .pub-item:hover { box-shadow: var(--shadow-hover); border-color: rgba(161,0,255,0.15); }
+  .pub-year { font-size: 0.78rem; font-weight: 600; margin-bottom: 4px; background: linear-gradient(135deg, var(--gradient-start), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .pub-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+  .pub-detail { font-size: 0.82rem; color: var(--text-secondary); }
+
+  .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .course-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow-card); transition: all var(--transition); cursor: pointer; }
+  .course-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); border-color: rgba(161,0,255,0.15); }
+  .course-card h4 { font-size: 0.95rem; margin-bottom: 4px; transition: color var(--transition); }
+  .course-card:hover h4 { color: var(--accent); }
+  .course-card .course-meta { font-size: 0.8rem; color: #888; margin-bottom: 6px; }
+  .course-card .course-desc { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease; font-size: 0.85rem; color: var(--text-secondary); opacity: 0; }
+  .course-card.open .course-desc { max-height: 1000px; padding-top: 8px; opacity: 1; }
+
+  .contact-section { text-align: center; padding: 60px 0; }
+  .contact-section h2 { font-size: 1.5rem; margin-bottom: 8px; }
+  .contact-section p { color: var(--text-secondary); margin-bottom: 24px; }
+  .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .contact-btn { padding: 10px 24px; border-radius: 8px; font-size: 0.9rem; font-weight: 500; border: 1px solid var(--border); color: var(--text); transition: all var(--transition); background: var(--bg-card); }
+  .contact-btn:hover { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 16px var(--accent-glow); }
+  .contact-btn.primary { background: linear-gradient(135deg, var(--gradient-start), var(--accent)); color: white; border-color: transparent; box-shadow: 0 2px 12px var(--accent-glow); }
+  .contact-btn.primary:hover { box-shadow: 0 4px 20px var(--accent-glow); transform: translateY(-1px); }
+
+  footer { border-top: 1px solid var(--border); padding: 24px 0; text-align: center; font-size: 0.8rem; color: #aaa; }
+
+  .copy-icon-btn { cursor: pointer; padding: 4px 6px; border-radius: 4px; transition: all var(--transition); display: inline-flex; align-items: center; color: #aaa; position: relative; z-index: 2; }
+  .copy-icon-btn:hover { color: var(--accent); background: var(--accent-light); }
+  .copy-icon-btn.copied { color: #10B981; }
+  .copy-icon-btn svg { width: 16px; height: 16px; }
+
+  .location-flag { height: 16px; vertical-align: middle; margin-left: 6px; border-radius: 2px; }
+
+  @media (max-width: 640px) {
+    .hero { flex-direction: column; text-align: center; padding: 48px 0 32px; }
+    .hero .contact-row { justify-content: center; }
+    .hero .summary { max-width: 100%; }
+    .contact-card { align-items: center; }
+    .contact-row-item { justify-content: center; }
+    .glance-grid { grid-template-columns: repeat(2, 1fr); }
+    nav .nav-links { gap: 14px; }
+    nav .nav-links a { font-size: 0.8rem; }
+    .approach-card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="gradient-bg"></div>
+
+<div class="content-wrapper">
+
+<nav>
+  <div class="container">
+    <div class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#publications">Publications</a>
+      <a href="#courses">Courses</a>
+      <a href="#contact">Contact</a>
+      <div class="logo"><img src="logo.png" alt="Logo"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero container fade-in">
+  <div class="hero-photo-wrap">
+    <canvas id="particles"></canvas>
+	<img class="hero-photo" src="photo.jpg" alt="SSA">
+  </div>
+  <div>
+    <h1>Șprințar Sergiu Adrian</h1>
+    <div class="subtitle">Software Developer · AI Systems Engineer · Witch Hunter</div>
+    <p class="summary">
+      Software developer with experience spanning backend systems, databases, AI agent orchestration, and mentoring.
+      Currently building GenAI-powered agentic systems in Python.
+    </p>
+    <div class="hero-contact-wrap">
+      <canvas id="contactParticles"></canvas>
+      <div id="location-line" style="margin-top:12px; font-size:0.88rem; color:var(--text-secondary);" data-country="Romania"></div>
+      <div class="contact-card">
+        <div class="contact-row-item">
+          <span class="contact-row-label">Email</span>
+          <span class="contact-row-value">sprintar.sergiu@gmail.com</span>
+          <span class="copy-icon-btn" onclick="copyField(this, 'sprintar.sergiu@gmail.com')" title="Copy">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </span>
+        </div>
+        <div class="contact-row-item">
+          <span class="contact-row-label">LinkedIn</span>
+          <span class="contact-row-value">www.linkedin.com/in/sergiu-sprintar</span>
+          <span class="copy-icon-btn" onclick="copyField(this, 'https://www.linkedin.com/in/sergiu-sprintar/')" title="Copy">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="approach container fade-in">
+  <div class="approach-card">
+    <p>
+      I believe almost any problem can be solved if you invest enough time to truly understand it.
+      My strongest skill isn't writing code, it's <strong>systems thinking</strong>. I connect the dots between components, unblock teammates, investigate the weird edge cases nobody wants to touch, and make sure the team
+      has what it needs to ship.<br>
+	  I can mentor, research, collaborate - yes, occasionally write code too.
+    </p>
+    <div style="text-align: right; margin-top: 6px;">
+      <a href="cv.pdf" onclick="if(window.goatcounter)window.goatcounter.count({path:'cv-download',title:'CV Downloaded',event:true})" style="font-size:0.85rem; padding:6px 18px; border-radius:12px; border:none; color:var(--text); background:linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end)); font-family:'Consolas','Monaco','Courier New',monospace; transition:all 0.3s ease; text-decoration:none; display:inline-block; box-shadow:0 2px 6px rgba(0,0,0,0.1);">Download CV</a>
+    </div>
+  </div>
+</section>
+
+<section class="glance container fade-in">
+  <div class="glance-grid">
+    <div class="glance-card"><div class="years">~9</div><div class="label">Years in Software</div><div class="detail">C++, C#, Python, JS</div></div>
+    <div class="glance-card"><div class="years">4+</div><div class="label">Years C# / .NET</div><div class="detail">Enterprise apps, migrations, MES</div></div>
+    <div class="glance-card"><div class="years">1+</div><div class="label">Years AI / GenAI</div><div class="detail">Agents, RAG, MCP, LLMs</div></div>
+    <div class="glance-card"><div class="years">7+</div><div class="label">Publications</div><div class="detail">Medical research data analysis</div></div>
+    <div class="glance-card"><div class="years">6+</div><div class="label">Courses Delivered</div><div class="detail">AI, Web Design, Digital Skills</div></div>
+    <div class="glance-card"><div class="years">3</div><div class="label">Interns Mentored</div><div class="detail">PoC projects, AI/RAG focus</div></div>
+  </div>
+</section>
+
+<section class="tech-section container fade-in">
+  <div class="section-title">Tech Universe</div>
+  <div class="tech-canvas-wrap">
+    <canvas id="techCanvas" height="360"></canvas>
+    <div class="tech-legend">
+      <div class="tech-legend-item"><div class="tech-legend-dot" style="background:#a100ff"></div> Languages</div>
+      <div class="tech-legend-item"><div class="tech-legend-dot" style="background:#3B82F6"></div> Frameworks &amp; Tools</div>
+      <div class="tech-legend-item"><div class="tech-legend-dot" style="background:#10B981"></div> AI / GenAI</div>
+      <div class="tech-legend-item"><div class="tech-legend-dot" style="background:#F59E0B"></div> Databases</div>
+      <div class="tech-legend-item"><div class="tech-legend-dot" style="background:#EF4444"></div> DevOps &amp; Infra</div>
+    </div>
+  </div>
+</section>
+
+<section class="section container fade-in" id="experience">
+  <div class="section-title">Work Experience</div>
+  <div class="timeline">
+    <div class="tl-item current"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">AI Systems Software Developer</span><span class="tl-expand-icon">▼</span><div class="tl-company">Accenture · AIP+ · Cluj-Napoca</div></div><span class="tl-date">Jul 2025 — Present</span></div><div class="tl-body"><p>GenAI project focused on AI Agents. Main language: Python.</p><ul><li>Feature research, development, and bug investigation for agentic AI systems</li><li>Managed the Release Note feature — auto-generates info from Azure DevOps tasks</li><li>Assisting and unblocking colleagues across the team — explaining system architecture, helping with agent design, investigating edge cases</li><li>Code review, test writing, internal client discussions</li><li>Azure DevOps pipeline changes and Kubernetes deployments</li></ul><div class="tl-tags"><span class="tag">Python</span><span class="tag">GenAI</span><span class="tag">AI Agents</span><span class="tag">Kubernetes</span><span class="tag">Azure DevOps</span></div></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">Software Developer (.NET)</span><span class="tl-expand-icon">▼</span><div class="tl-company">Accenture · Cluj-Napoca</div></div><span class="tl-date">Aug 2021 — Jun 2025</span></div><div class="tl-body"><p>Enterprise .NET application development with a focus on data migration and mentoring.</p><ul><li>Owned the DMT (Data Migration Tool) feature for migrating entities from legacy systems</li><li>Coordinated the internship program for 2 consecutive years, mentoring 3 interns</li><li>Participated in and conducted technical interviews for intern hiring</li><li>Full-cycle development: features, bug investigation, code review, testing, documentation</li></ul><div class="tl-tags"><span class="tag">C#</span><span class="tag">.NET</span><span class="tag">MSSQL</span><span class="tag">JavaScript</span><span class="tag">Visual Basic</span><span class="tag">Python</span></div></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">IT Consultant &amp; Trainer</span><span class="tl-expand-icon">▼</span><div class="tl-company">Chamber of Commerce, Industry and Agriculture Arad</div></div><span class="tl-date">Jan 2023 — Dec 2024</span></div><div class="tl-body"><p>Technical consulting, website modernization, and delivering IT training courses.</p><ul><li>Rebuilt the institution's website end-to-end using WordPress (Astra + Elementor)</li><li>Developed custom JS filtering for accordion tables and a plugin for dynamic Excel search</li><li>Configured security (Wordfence, .htaccess hardening, file access restrictions)</li><li>Delivered courses on AI, Web Design, and Digital Skills to audiences aged 20–60</li></ul><div class="tl-tags"><span class="tag">WordPress</span><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">Training</span><span class="tag">Security</span></div></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">MES Software Developer</span><span class="tl-expand-icon">▼</span><div class="tl-company">Continental Automotive · Sibiu</div></div><span class="tl-date">Jul 2018 — Jun 2021</span></div><div class="tl-body"><p>Manufacturing Execution System engineering in an automotive production environment.</p><ul><li>Production support for MES applications</li><li>Created reports using Oracle 12c SQL</li><li>Developed and improved applications in ANSI C and C#</li><li>Built internal tools, managed supplier discussions, conducted training sessions</li><li>Database creation, ETLs, participation in proof-of-concept projects</li></ul><div class="tl-tags"><span class="tag">Oracle SQL</span><span class="tag">ANSI C</span><span class="tag">C#</span><span class="tag">MES</span><span class="tag">ETL</span></div></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">Junior Software Developer</span><span class="tl-expand-icon">▼</span><div class="tl-company">Saguaro · Timișoara</div></div><span class="tl-date">Apr 2016 — Jul 2017</span></div><div class="tl-body"><p>C++ development with exposure to version control and parallelism concepts.</p><div class="tl-tags"><span class="tag">C++</span><span class="tag">Version Control</span><span class="tag">Parallelism</span></div></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">Customer Support</span><span class="tl-expand-icon">▼</span><div class="tl-company">Happy Tour · Marbella, Spain</div></div><span class="tl-date">Jan 2014 — Aug 2015</span></div><div class="tl-body"><p>Tourism and administration — client communication, property management on booking platforms, website content updates. Where I learned time management and sharpened communication skills.</p><div class="tl-tags"><span class="tag">Communication</span><span class="tag">Tourism</span><span class="tag">Administration</span></div></div></div>
+  </div>
+</section>
+
+<section class="section container fade-in" id="projects">
+  <div class="section-title">Projects</div>
+  <div class="project-grid">
+    <div class="project-card"><div class="project-header" onclick="toggleProject(this)"><h3>DiBaX — NATO Innovation Event ▾</h3><span class="project-date">Oct–Nov 2025</span></div><div class="project-body"><div class="project-body-inner"><p>Defense industry demonstration. Integrated a GenAI application with a COP (Common Operational Picture) server to provide real-time battlefield data for operator decision-making.</p><p>Implemented an agentic workflow where GenAI interprets user messages, extracts information, and orchestrates multiple agents to achieve outcomes.</p><div class="tl-tags"><span class="tag">Python</span><span class="tag">MCP</span><span class="tag">Elastic Search</span><span class="tag">Kibana</span><span class="tag">GenAI</span><span class="tag">Prompt Engineering</span></div><a class="project-link" href="https://www.linkedin.com/posts/lmtinnovations_dibax-2025-activity-7354051141673922561-uDBn/" target="_blank">View on LinkedIn →</a></div></div></div>
+    <div class="project-card"><div class="project-header" onclick="toggleProject(this)"><h3>Hackathon — Aria Agent ▾</h3><span class="project-date">Feb 2025</span></div><div class="project-body"><div class="project-body-inner"><p>36-hour hackathon: built an orchestrated AI agent prototype integrated with a .NET application. Implemented TTS (Kokoro) and STT (Faster Whisper) for bidirectional voice communication.</p><p>Also directed the presentation video — scripting, filming, voice-over, and integration of real usage examples. Result: functional demo + marketing video for the client.</p><div class="tl-tags"><span class="tag">Python</span><span class="tag">.NET</span><span class="tag">LlamaIndex</span><span class="tag">SignalR</span><span class="tag">TTS/STT</span><span class="tag">Video Directing</span></div></div></div></div>
+    <div class="project-card"><div class="project-header" onclick="toggleProject(this)"><h3>Mentor — AI Voice Control Agent ▾</h3><span class="project-date">Jul–Aug 2024</span></div><div class="project-body"><div class="project-body-inner"><p>Designed and coordinated a PoC for voice-controlling a .NET SPA using AI. Architecture: STT server (Faster Whisper) → AI server (multi-layer agentic processing) → SPA performing CRUD operations via voice.</p><p>Mentored an intern through all stages. Result: functional PoC with a comparative report between different local AI/STT models.</p><div class="tl-tags"><span class="tag">Python</span><span class="tag">.NET</span><span class="tag">STT</span><span class="tag">AI Agents</span><span class="tag">Mentorship</span></div></div></div></div>
+    <div class="project-card"><div class="project-header" onclick="toggleProject(this)"><h3>PoC: Local AI + Database ▾</h3><span class="project-date">Feb–Mar 2024</span></div><div class="project-body"><div class="project-body-inner"><p>Pilot project connecting local AI models to an internal database. Researched and tested LlamaIndex, LangChain, and SQLAlchemy for AI–database integration.</p><p>Challenges: EntityFramework reflection limitations, extremely complex DB schema with abbreviations requiring extra context for AI, and CPU processing constraints for local models.</p><p>Result: client-facing presentation outlining requirements for future AI integration.</p><div class="tl-tags"><span class="tag">Python</span><span class="tag">LlamaIndex</span><span class="tag">LangChain</span><span class="tag">SQLAlchemy</span><span class="tag">R&D</span></div></div></div></div>
+    <div class="project-card"><div class="project-header" onclick="toggleProject(this)"><h3>Mentor — AI for Documentation (RAG) ▾</h3><span class="project-date">Jul–Sep 2023</span></div><div class="project-body"><div class="project-body-inner"><p>Designed a local RAG (Retrieval-Augmented Generation) application for two consecutive interns to implement. The system analyzed documents and generated relevant answers from their content.</p><p>Coordinated and guided with minimal direct coding. Notable challenge: major compatibility issues between AI library versions and Python.</p><div class="tl-tags"><span class="tag">Python</span><span class="tag">RAG</span><span class="tag">LLM</span><span class="tag">Mentorship</span></div></div></div></div>
+    <div class="project-card"><div class="project-header" onclick="toggleProject(this)"><h3>Automatic Transportation (Robotics) ▾</h3><span class="project-date">Jun 2019 — Jan 2020</span></div><div class="project-body"><div class="project-body-inner"><p>Developed a C# intermediary program enabling communication between production robots and conveyor equipment. The system coordinated robot pick-up and placement of parts based on machine signals.</p><div class="tl-tags"><span class="tag">C#</span><span class="tag">Robotics</span><span class="tag">Manufacturing</span></div></div></div></div>
+  </div>
+</section>
+
+<section class="section container fade-in" id="publications">
+  <div class="section-title">Publications</div>
+  <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">Contributions to peer-reviewed medical research — data cleaning, statistical analysis, and technical support.</p>
+  <div class="pub-list">
+    <div class="pub-item"><div class="pub-year">2026</div><div class="pub-title">Prevalence and Risk Factors of Borrelia burgdorferi Sensu Lato IgG Antibodies Among Blood Donors in Western Romania</div><div class="pub-detail">Journal: Pathogens</div></div>
+    <div class="pub-item"><div class="pub-year">2025</div><div class="pub-title">Seroepidemiology of SARS-CoV-2 Infection in Blood Donors from Western Romania</div><div class="pub-detail">Journal: Microorganisms</div></div>
+    <div class="pub-item"><div class="pub-year">2025</div><div class="pub-title">Seroprevalence and Risk Factors Associated with Toxocara Infection in Blood Donors from Romania</div><div class="pub-detail">Journal: Pathogens</div></div>
+    <div class="pub-item"><div class="pub-year">2025</div><div class="pub-title">Toxoplasma gondii Seroprevalence in Psychiatric Patients with Depression from Western Romania</div><div class="pub-detail">Journal: Life</div></div>
+    <div class="pub-item"><div class="pub-year">2025</div><div class="pub-title">Trends in Positive Urine Culture Rates and Antimicrobial Resistance in Non-Hospitalized Children from Western Romania</div><div class="pub-detail">Journal: Antibiotics</div></div>
+    <div class="pub-item"><div class="pub-year">2025</div><div class="pub-title">Retrospective Serologic Assessment of Vitamin D Levels in Children from Western Romania</div><div class="pub-detail">Journal: Medicina</div></div>
+    <div class="pub-item"><div class="pub-year">2024</div><div class="pub-title">Prevalence and Antibiotic Resistance of Streptococcus agalactiae in Women of Childbearing Age from Western Romania</div><div class="pub-detail">Journal: Life</div></div>
+  </div>
+</section>
+
+<section class="section container fade-in" id="courses">
+  <div class="section-title">Courses &amp; Workshops Delivered</div>
+  <div class="course-grid">
+    <div class="course-card" onclick="toggleCourse(this)"><h4>AI Workshop — Project Management</h4><div class="course-meta">Jul 2025 · Arad</div><div class="course-desc">Interactive workshop on using AI for project management and proposal drafting. Covered LLMs, software agents, advanced prompting, RAG, and practical use of ChatGPT/Gemini.</div></div>
+    <div class="course-card" onclick="toggleCourse(this)"><h4>Digital Skills Course</h4><div class="course-meta">Sep–Oct 2024 · Arad</div><div class="course-desc">IT history, core concepts, Office suite with Excel focus, practical exercises. Participants aged 20–50.</div></div>
+    <div class="course-card" onclick="toggleCourse(this)"><h4>Web Design Course</h4><div class="course-meta">Aug–Oct 2024 · Arad</div><div class="course-desc">Beginner course covering HTML, CSS, JavaScript, inspect element, Shopify, and WordPress. Encouraged AI-assisted code generation while understanding underlying logic. Participants aged 20–60.</div></div>
+    <div class="course-card" onclick="toggleCourse(this)"><h4>AI Utilization Course</h4><div class="course-meta">May–Jun 2024 · Arad</div><div class="course-desc">Covered LLMs, generative AI, Transformer architecture, text/image/audio generation (ChatGPT, Claude, Leonardo, Suno, ElevenLabs), and AI's impact on business processes.</div></div>
+    <div class="course-card" onclick="toggleCourse(this)"><h4>AI Workshop — Introduction</h4><div class="course-meta">Apr 2024 · Arad</div><div class="course-desc">Introductory workshop on generative AI concepts and practical applications.</div></div>
+    <div class="course-card" onclick="toggleCourse(this)"><h4>Digital Skills Course</h4><div class="course-meta">Apr 2023 · Arad</div><div class="course-desc">IT fundamentals, Office suite, Excel focus, practical exercises. Participants aged 20–50.</div></div>
+  </div>
+</section>
+
+<section class="section contact-section container fade-in" id="contact">
+  <h2>Let's Connect</h2>
+  <p>Open to new opportunities, collaborations, and interesting conversations.</p>
+  <div class="contact-links">
+    <a class="contact-btn primary" href="mailto:sprintar.sergiu@gmail.com">Send an Email</a>
+    <a class="contact-btn" href="https://www.linkedin.com/in/sergiu-sprintar/" target="_blank">LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">© 2026 Sergiu Adrian Șprințar. Built with stubbornness and AI.</div>
+</footer>
+
+</div>
+
+<script>
+function copyField(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.querySelector('svg').innerHTML = '<path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/>';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.querySelector('svg').innerHTML = '<rect x="9" y="9" width="11" height="11" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>';
+    }, 1500);
+  });
+}
+
+(function() {
+  const c = document.getElementById('particles');
+  const wrap = c.parentElement;
+  const ctx = c.getContext('2d');
+  let w, h, particles = [];
+  const COUNT = 25;
+  function resize() { w = c.width = wrap.offsetWidth; h = c.height = wrap.offsetHeight; }
+  window.addEventListener('resize', resize); resize();
+  for (let i = 0; i < COUNT; i++) { particles.push({ x: Math.random()*w, y: Math.random()*h, vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3, r: Math.random()*2+1, a: Math.random()*0.15+0.05 }); }
+  function draw() {
+    ctx.clearRect(0,0,w,h);
+    for (let i=0;i<particles.length;i++) { const p=particles[i]; p.x+=p.vx; p.y+=p.vy; if(p.x<0)p.x=w; if(p.x>w)p.x=0; if(p.y<0)p.y=h; if(p.y>h)p.y=0; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle=`rgba(161,0,255,${p.a})`; ctx.fill();
+      for(let j=i+1;j<particles.length;j++){const q=particles[j];const dx=p.x-q.x,dy=p.y-q.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<150){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=`rgba(161,0,255,${0.06*(1-dist/150)})`;ctx.lineWidth=0.5;ctx.stroke();}}
+    } requestAnimationFrame(draw);
+  } draw();
+})();
+
+(function() {
+  const c = document.getElementById('contactParticles');
+  const wrap = c.parentElement;
+  const ctx = c.getContext('2d');
+  let w, h, particles = [];
+  const COUNT = 27;
+  function resize() { w = c.width = wrap.offsetWidth+40; h = c.height = wrap.offsetHeight+20; }
+  window.addEventListener('resize', resize); resize();
+  for (let i=0;i<COUNT;i++) { particles.push({ x: Math.random()*w, y: Math.random()*h, vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3, r: Math.random()*2+1, a: Math.random()*0.15+0.05 }); }
+  function draw() {
+    ctx.clearRect(0,0,w,h);
+    for(let i=0;i<particles.length;i++){const p=particles[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(161,0,255,${p.a})`;ctx.fill();
+      for(let j=i+1;j<particles.length;j++){const q=particles[j];const dx=p.x-q.x,dy=p.y-q.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<150){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=`rgba(161,0,255,${0.06*(1-dist/150)})`;ctx.lineWidth=0.5;ctx.stroke();}}
+    } requestAnimationFrame(draw);
+  } draw();
+})();
+
+(function() {
+  const canvas=document.getElementById('techCanvas'),ctx=canvas.getContext('2d'),wrap=canvas.parentElement;
+  const techs=[{label:'Python',cat:0,size:1.1},{label:'C#',cat:0,size:1.0},{label:'JavaScript',cat:0,size:0.8},{label:'C++',cat:0,size:0.6},{label:'ANSI C',cat:0,size:0.5},{label:'Visual Basic',cat:0,size:0.4},{label:'PHP',cat:0,size:0.4},{label:'.NET',cat:1,size:0.9},{label:'LlamaIndex',cat:1,size:0.7},{label:'LangChain',cat:1,size:0.6},{label:'SignalR',cat:1,size:0.5},{label:'WordPress',cat:1,size:0.5},{label:'Elementor',cat:1,size:0.3},{label:'AI Agents',cat:2,size:1.1},{label:'RAG',cat:2,size:0.9},{label:'MCP',cat:2,size:0.8},{label:'LLMs',cat:2,size:0.9},{label:'Prompt Eng.',cat:2,size:0.7},{label:'TTS/STT',cat:2,size:0.6},{label:'MSSQL',cat:3,size:0.8},{label:'Oracle SQL',cat:3,size:0.7},{label:'MySQL',cat:3,size:0.5},{label:'Elastic Search',cat:3,size:0.6},{label:'Kubernetes',cat:4,size:0.7},{label:'Azure DevOps',cat:4,size:0.7},{label:'Kibana',cat:4,size:0.5},{label:'Git',cat:4,size:0.6}];
+  const colors=['#a100ff','#3B82F6','#10B981','#F59E0B','#EF4444'];
+  let nodes=[],mouse={x:-999,y:-999},W,H,clusters=[];
+  function init(){W=canvas.width=wrap.clientWidth;H=canvas.height=360;clusters=[{x:W*0.18,y:H*0.38},{x:W*0.42,y:H*0.28},{x:W*0.68,y:H*0.22},{x:W*0.82,y:H*0.55},{x:W*0.50,y:H*0.72}];if(nodes.length===0){nodes=techs.map(t=>{const cl=clusters[t.cat],a=Math.random()*Math.PI*2,s=45+Math.random()*65;return{...t,x:cl.x+Math.cos(a)*s,y:cl.y+Math.sin(a)*s,vx:0,vy:0};});}}
+  canvas.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
+  canvas.addEventListener('mouseleave',()=>{mouse.x=-999;mouse.y=-999;});
+  window.addEventListener('resize',()=>{init();});init();
+  function draw(){ctx.clearRect(0,0,W,H);for(let i=0;i<nodes.length;i++){const n=nodes[i],cl=clusters[n.cat],toCx=cl.x-n.x,toCy=cl.y-n.y;if(Math.sqrt(toCx*toCx+toCy*toCy)>5){n.vx+=toCx*0.0008;n.vy+=toCy*0.0008;}const mDx=n.x-mouse.x,mDy=n.y-mouse.y,mD=Math.sqrt(mDx*mDx+mDy*mDy);if(mD<100&&mD>0){const f=(100-mD)/100*0.4;n.vx+=(mDx/mD)*f;n.vy+=(mDy/mD)*f;}for(let j=i+1;j<nodes.length;j++){const m=nodes[j],dx=n.x-m.x,dy=n.y-m.y,d=Math.sqrt(dx*dx+dy*dy),mn=(18*n.size+4)+(18*m.size+4)+22;if(d<mn&&d>0){const p=(mn-d)*0.015,nx2=dx/d,ny2=dy/d;n.vx+=nx2*p;n.vy+=ny2*p;m.vx-=nx2*p;m.vy-=ny2*p;}}if(n.x<45)n.vx+=0.05;if(n.x>W-45)n.vx-=0.05;if(n.y<25)n.vy+=0.05;if(n.y>H-25)n.vy-=0.05;n.vx*=0.94;n.vy*=0.94;n.x+=n.vx;n.y+=n.vy;}for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){if(nodes[i].cat===nodes[j].cat){const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<200){ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.strokeStyle=colors[nodes[i].cat]+'22';ctx.lineWidth=0.8;ctx.stroke();}}}nodes.forEach(n=>{const mDx=n.x-mouse.x,mDy=n.y-mouse.y,mD=Math.sqrt(mDx*mDx+mDy*mDy);let s=18*n.size+4,hl=mD<90;if(hl)s*=1.2;if(hl){ctx.beginPath();ctx.arc(n.x,n.y,s+6,0,Math.PI*2);ctx.fillStyle=colors[n.cat]+'15';ctx.fill();}ctx.beginPath();ctx.arc(n.x,n.y,s,0,Math.PI*2);ctx.fillStyle=colors[n.cat]+(hl?'30':'18');ctx.fill();ctx.strokeStyle=colors[n.cat]+(hl?'80':'50');ctx.lineWidth=hl?2:1;ctx.stroke();ctx.fillStyle=hl?colors[n.cat]:'#555';ctx.font=`${hl?'600':'500'} ${Math.round(11+n.size*3)}px 'Segoe UI',system-ui,sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(n.label,n.x,n.y);});requestAnimationFrame(draw);}draw();
+})();
+
+(function(){const countries={'romania':'RO','poland':'PL','hungary':'HU','italy':'IT','germany':'DE','france':'FR','spain':'ES','portugal':'PT','netherlands':'NL','belgium':'BE','austria':'AT','switzerland':'CH','czech republic':'CZ','czechia':'CZ','slovakia':'SK','croatia':'HR','slovenia':'SI','serbia':'RS','bulgaria':'BG','greece':'GR','sweden':'SE','norway':'NO','denmark':'DK','finland':'FI','ireland':'IE','united kingdom':'GB','uk':'GB','england':'GB','united states':'US','usa':'US','canada':'CA','australia':'AU','japan':'JP','south korea':'KR','india':'IN','brazil':'BR','mexico':'MX','turkey':'TR','ukraine':'UA','moldova':'MD','luxembourg':'LU','malta':'MT','cyprus':'CY','estonia':'EE','latvia':'LV','lithuania':'LT','iceland':'IS','israel':'IL','uae':'AE','singapore':'SG','new zealand':'NZ','argentina':'AR','chile':'CL','colombia':'CO','south africa':'ZA','egypt':'EG','china':'CN','taiwan':'TW','thailand':'TH','vietnam':'VN','philippines':'PH','indonesia':'ID','malaysia':'MY'};const el=document.getElementById('location-line');const country=el.dataset.country.trim();const code=countries[country.toLowerCase()];if(code){el.innerHTML='&#9656; Currently based in '+country+' <img class="location-flag" src="https://flagcdn.com/24x18/'+code.toLowerCase()+'.png" srcset="https://flagcdn.com/48x36/'+code.toLowerCase()+'.png 2x" width="24" height="18" alt="'+country+' flag">';}else{el.textContent='▸ Currently based in '+country;}})();
+
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+
+function toggleTl(header){header.closest('.tl-item').classList.toggle('open');}
+function toggleProject(header){header.closest('.project-card').classList.toggle('open');}
+function toggleCourse(card){card.classList.toggle('open');}
+
+document.querySelectorAll('nav a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const target=document.querySelector(a.getAttribute('href'));if(target)target.scrollIntoView({behavior:'smooth',block:'start'});});});
+</script>
+
+<script data-goatcounter="https://sprintar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
