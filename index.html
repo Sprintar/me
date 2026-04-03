@@ -179,12 +179,13 @@
   .approach-card p strong { color: var(--text); font-weight: 600; }
 
   .glance { padding: 0 0 48px; }
-  .glance-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+  .glance-grid { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
   .glance-card {
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: var(--radius); padding: 20px;
     box-shadow: var(--shadow-card); transition: all var(--transition); cursor: default;
-  }
+    flex: 0 1 200px; min-width: 180px; max-width: 250px;
+}
   .glance-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); border-color: rgba(161,0,255,0.2); }
   .glance-card .years {
     font-size: 1.8rem; font-weight: 700;
@@ -320,7 +321,7 @@
       <a href="#publications">Publications</a>
       <a href="#courses">Courses</a>
       <a href="#contact">Contact</a>
-      <div class="logo"><img src="logo.png" alt="Logo"></div>
+	  <a class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><img src="logo.png" alt="Logo"></a>
     </div>
   </div>
 </nav>
@@ -376,8 +377,7 @@
 
 <section class="glance container fade-in">
   <div class="glance-grid">
-    <div class="glance-card"><div class="years">~9</div><div class="label">Years in Software</div><div class="detail">C++, C#, Python, JS</div></div>
-    <div class="glance-card"><div class="years">4+</div><div class="label">Years C# / .NET</div><div class="detail">Enterprise apps, migrations, MES</div></div>
+    <div class="glance-card"><div class="years">~9</div><div class="label">Years in Software</div><div class="detail">Enterprise apps, C++, C#, Python, JS</div></div>
     <div class="glance-card"><div class="years">1+</div><div class="label">Years AI / GenAI</div><div class="detail">Agents, RAG, MCP, LLMs</div></div>
     <div class="glance-card"><div class="years">7+</div><div class="label">Publications</div><div class="detail">Medical research data analysis</div></div>
     <div class="glance-card"><div class="years">6+</div><div class="label">Courses Delivered</div><div class="detail">AI, Web Design, Digital Skills</div></div>
