@@ -490,7 +490,10 @@
 </div>
 
 <script>
-document.getElementById('website-url').textContent = window.location.hostname + window.location.pathname;
+const url = window.location.href;
+const display = window.location.hostname + window.location.pathname;
+const el = document.getElementById('website-url');
+el.innerHTML = '<a href="' + url + '" style="color:var(--text); text-decoration:none;">' + display + '</a>';
 
 function copyField(btn, text) {
   navigator.clipboard.writeText(text).then(() => {
