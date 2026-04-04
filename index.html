@@ -293,6 +293,7 @@
   .copy-icon-btn svg { width: 16px; height: 16px; }
 
   .location-flag { height: 16px; vertical-align: middle; margin-left: 6px; border-radius: 2px; }
+  .print-only { display: none; }
 
   @media (max-width: 640px) {
     .hero { flex-direction: column; text-align: center; padding: 48px 0 32px; }
@@ -306,6 +307,7 @@
     .approach-card { padding: 20px; }
   }
   @media print {
+	.print-only { display: flex; }
   .glance-card .years {
     background: none;
     -webkit-background-clip: unset;
@@ -361,6 +363,13 @@
       <canvas id="contactParticles"></canvas>
       <div id="location-line" style="margin-top:12px; font-size:0.88rem; color:var(--text-secondary);" data-country="Romania"></div>
       <div class="contact-card">
+		<div class="contact-row-item print-only">
+		  <span class="contact-row-label">Website</span>
+		  <span class="contact-row-value" id="website-url"></span>
+		  <span class="copy-icon-btn" onclick="copyField(this, 'website')" title="Copy">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><rect x="9" y="9" width="11" height="11" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </span>
+		</div>
         <div class="contact-row-item">
           <span class="contact-row-label">Email</span>
           <span class="contact-row-value">sprintar.sergiu@gmail.com</span>
@@ -389,7 +398,7 @@
 	  I can mentor, research, collaborate - yes, occasionally write code too.
     </p>
     <div style="text-align: right; margin-top: 6px;">
-      <a href="SprintarSergiuCV.pdf" onclick="if(window.goatcounter)window.goatcounter.count({path:'cv-download',title:'CV Downloaded',event:true})" style="font-size:0.85rem; padding:6px 18px; border-radius:12px; border:none; color:var(--text); background:linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end)); font-family:'Consolas','Monaco','Courier New',monospace; transition:all 0.3s ease; text-decoration:none; display:inline-block; box-shadow:0 2px 6px rgba(0,0,0,0.1);">Download CV</a>
+      <a href="SprintarSergiuCV.pdf" onclick="if(window.goatcounter)window.goatcounter.count({path:'cv-download',title:'CV Downloaded',event:true})" style="font-size:0.85rem; padding:6px 18px; border-radius:12px; border:none; color:var(--text); background:linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end)); font-family:'Consolas','Monaco','Courier New',monospace; transition:all 0.3s ease; text-decoration:none; display:inline-block; box-shadow:0 2px 6px rgba(0,0,0,0.1);">▸ Download Full CV</a>
     </div>
   </div>
 </section>
@@ -422,9 +431,9 @@
   <div class="section-title">Work Experience</div>
   <div class="timeline">
     <div class="tl-item current"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">AI Systems Software Developer</span><span class="tl-expand-icon">▼</span><div class="tl-company">Accenture · AIP+ · Cluj-Napoca</div></div><span class="tl-date">Jul 2025 — Present</span></div><div class="tl-body"><p>GenAI project focused on AI Agents. Main language: Python.</p><ul><li>Feature research, development, and bug investigation for agentic AI systems</li><li>Managed the Release Note feature — auto-generates info from Azure DevOps tasks</li><li>Assisting and unblocking colleagues across the team — explaining system architecture, helping with agent design, investigating edge cases</li><li>Code review, test writing, internal client discussions</li><li>Azure DevOps pipeline changes and Kubernetes deployments</li></ul><div class="tl-tags"><span class="tag">Python</span><span class="tag">GenAI</span><span class="tag">AI Agents</span><span class="tag">Kubernetes</span><span class="tag">Azure DevOps</span></div></div></div>
-    <div class="tl-item"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">Software Developer (.NET)</span><span class="tl-expand-icon">▼</span><div class="tl-company">Accenture · MES · Cluj-Napoca</div></div><span class="tl-date">Aug 2021 — Jun 2025</span></div><div class="tl-body"><p>Enterprise .NET application development with a focus on data migration and mentoring.</p><ul><li>Owned the DMT (Data Migration Tool) feature for migrating entities from legacy systems</li><li>Coordinated the internship program for 2 consecutive years, mentoring 3 interns</li><li>Participated in and conducted technical interviews for intern hiring</li><li>Full-cycle development: features, bug investigation, code review, testing, documentation</li></ul><div class="tl-tags"><span class="tag">C#</span><span class="tag">.NET</span><span class="tag">MSSQL</span><span class="tag">JavaScript</span><span class="tag">Visual Basic</span><span class="tag">Python</span></div></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">Software Developer</span><span class="tl-expand-icon">▼</span><div class="tl-company">Accenture · MES · Cluj-Napoca</div></div><span class="tl-date">Aug 2021 — Jun 2025</span></div><div class="tl-body"><p>Enterprise .NET application development with a focus on data migration and mentoring.</p><ul><li>Owned the DMT (Data Migration Tool) feature for migrating entities from legacy systems</li><li>Coordinated the internship program for 2 consecutive years, mentoring 3 interns</li><li>Participated in and conducted technical interviews for intern hiring</li><li>Full-cycle development: features, bug investigation, code review, testing, documentation</li></ul><div class="tl-tags"><span class="tag">C#</span><span class="tag">.NET</span><span class="tag">MSSQL</span><span class="tag">JavaScript</span><span class="tag">Visual Basic</span><span class="tag">Python</span></div></div></div>
     <div class="tl-item"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">IT Consultant &amp; Trainer</span><span class="tl-expand-icon">▼</span><div class="tl-company">Chamber of Commerce, Industry and Agriculture Arad</div></div><span class="tl-date">Jan 2023 — Dec 2024</span></div><div class="tl-body"><p>Technical consulting, website modernization, and delivering IT training courses.</p><ul><li>Rebuilt the institution's website end-to-end using WordPress (Astra + Elementor)</li><li>Developed custom JS filtering for accordion tables and a plugin for dynamic Excel search</li><li>Configured security (Wordfence, .htaccess hardening, file access restrictions)</li><li>Delivered courses on AI, Web Design, and Digital Skills to audiences aged 20–60</li></ul><div class="tl-tags"><span class="tag">WordPress</span><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">Training</span><span class="tag">Security</span></div></div></div>
-    <div class="tl-item"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">MES Software Developer</span><span class="tl-expand-icon">▼</span><div class="tl-company">Continental Automotive · Sibiu</div></div><span class="tl-date">Jul 2018 — Jun 2021</span></div><div class="tl-body"><p>Manufacturing Execution System engineering in an automotive production environment.</p><ul><li>Production support for MES applications</li><li>Created reports using Oracle 12c SQL</li><li>Developed and improved applications in ANSI C and C#</li><li>Built internal tools, managed supplier discussions, conducted training sessions</li><li>Database creation, ETLs, participation in proof-of-concept projects</li></ul><div class="tl-tags"><span class="tag">Oracle SQL</span><span class="tag">ANSI C</span><span class="tag">C#</span><span class="tag">MES</span><span class="tag">ETL</span></div></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">Software Developer</span><span class="tl-expand-icon">▼</span><div class="tl-company">Continental Automotive · MES · Sibiu</div></div><span class="tl-date">Jul 2018 — Jun 2021</span></div><div class="tl-body"><p>Manufacturing Execution System engineering in an automotive production environment.</p><ul><li>Production support for MES applications</li><li>Created reports using Oracle 12c SQL</li><li>Developed and improved applications in ANSI C and C#</li><li>Built internal tools, managed supplier discussions, conducted training sessions</li><li>Database creation, ETLs, participation in proof-of-concept projects</li></ul><div class="tl-tags"><span class="tag">Oracle SQL</span><span class="tag">ANSI C</span><span class="tag">C#</span><span class="tag">MES</span><span class="tag">ETL</span></div></div></div>
     <div class="tl-item"><div class="tl-dot"></div><div class="tl-header" onclick="toggleTl(this)"><div><span class="tl-role">Junior Software Developer</span><span class="tl-expand-icon">▼</span><div class="tl-company">Saguaro · Timișoara</div></div><span class="tl-date">Apr 2016 — Jul 2017</span></div><div class="tl-body"><p>C++ development with exposure to version control and parallelism concepts.</p><div class="tl-tags"><span class="tag">C++</span><span class="tag">Version Control</span><span class="tag">Parallelism</span></div></div></div>
   </div>
 </section>
@@ -483,6 +492,8 @@
 </div>
 
 <script>
+document.getElementById('website-url').textContent = window.location.hostname + window.location.pathname;
+
 function copyField(btn, text) {
   navigator.clipboard.writeText(text).then(() => {
     btn.classList.add('copied');
